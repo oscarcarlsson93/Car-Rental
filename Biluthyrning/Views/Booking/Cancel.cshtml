@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Biluthyrning.Models.Booking>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Aktiv
+            </th>
+            <th>
+                Bil
+            </th>
+            <th>
+                Upphämtningsdatum
+            </th>
+            <th>
+                Inlämningsdatum
+            </th>
+            <th>
+                Hyrda dagar
+            </th>
+            
+            <th>
+                Bokningsnummer
+            </th>
+            <th>
+                Kostnad
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.CarType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpDate)
+            </td>
+            <td>
+                @if (item.Active == false)
+                {
+
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+                }
+            </td>
+            <td>
+                @if (item.Active == false)
+                {
+                @Html.DisplayFor(modelItem => item.RentedDays)
+
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+
+
+                @Html.DisplayFor(modelItem => item.Price)
+
+            </td>
+            <td>
+                <a asp-action="Payment" asp-route-id="@item.Id">Avsluta bokning</a> 
+                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+

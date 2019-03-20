@@ -1,0 +1,42 @@
+﻿@model Biluthyrning.Models.Booking
+
+
+
+<h2>Avsluta hyrning</h2>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Payment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PickUpDate" />
+            <input type="hidden" asp-for="Car.Id" />
+            <input type="hidden" asp-for="Customer.Id" />
+            <input type="hidden" asp-for="Car.DrivenKm" />
+            <input type="hidden" asp-for="Car.CarType" />
+            
+
+
+            <input type="hidden" asp-for="Active" />
+
+
+            @*@Model.PickUpDate*@
+            <div class="form-group">
+                <label asp-for="ReturnDate" class="control-label"></label>
+                <input asp-for="ReturnDate" class="form-control" />
+                <span asp-validation-for="ReturnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Distance" class="control-label"></label>
+                <input asp-for="Distance" class="form-control" />
+                <span asp-validation-for="Distance" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
