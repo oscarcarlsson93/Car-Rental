@@ -73,11 +73,11 @@ namespace Biluthyrning.Controllers
             {
 
                 var booking = new Booking();
-                
+
 
                 booking.Id = new Guid();
                 booking.Car = vm.Car;
-                booking.Customer = vm.Customer;
+                booking.CustomerId = vm.Booking.CustomerId;
                 booking.PickUpDate = vm.Booking.PickUpDate;
 
                 _context.Add(booking);
@@ -102,6 +102,8 @@ namespace Biluthyrning.Controllers
 
             return View(booking);
         }
+
+
 
 
         [HttpPost]
