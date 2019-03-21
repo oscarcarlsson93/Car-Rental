@@ -1,0 +1,44 @@
+﻿@model List<Biluthyrning.Models.Customer>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Förnamn
+            </th>
+            <th>
+                Efternamn
+            </th>
+            <th>
+                Personnummer
+            </th>
+      
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonalNumber)
+
+            </td>
+            <td>
+
+                <a asp-action="AllBookings" asp-route-id="@item.Id">Se alla bokningar</a>
+
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>

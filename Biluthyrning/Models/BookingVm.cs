@@ -12,6 +12,7 @@ namespace Biluthyrning.Models
         public Car Car { get; set; }
         public Customer Customer { get; set; }
         public IEnumerable<SelectListItem> AllCarTypes { get; set; }
+        public IEnumerable<SelectListItem> AllCustomers { get; set; }
 
 
 

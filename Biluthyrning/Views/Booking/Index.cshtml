@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <h3>Kundens uppgifter</h3>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Customer.FirstName" class="control-label">Förnamn</label>
                 <input asp-for="Customer.FirstName" class="form-control" />
                 <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
@@ -29,7 +29,9 @@
                 <label asp-for="Customer.PersonalNumber" class="control-label">Kundens personnummer</label>
                 <input asp-for="Customer.PersonalNumber" class="form-control" />
                 <span asp-validation-for="Customer.PersonalNumber" class="text-danger"></span>
-            </div>
+            </div>*@
+            <select asp-for="Customer.Id" asp-items="Model.AllCustomers"></select>
+
             <h3>Uppgifter om bil och uthyrning</h3>
 
             <div class="form-group">

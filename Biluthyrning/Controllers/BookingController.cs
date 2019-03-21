@@ -28,8 +28,24 @@ namespace Biluthyrning.Controllers
             var bookingVm = new BookingVm();
 
             string[] allCarTypes = Enum.GetNames(typeof(CarType));
+           var allCustomers = _context.Customer.ToList();
 
             var list = new List<SelectListItem>();
+            var listOfCustomers = new List<SelectListItem>();
+
+           
+
+            foreach (var customer in allCustomers)
+            {
+                
+
+                string wholeName = $"{customer.FirstName} {customer.LastName}";
+                var x = new SelectListItem() { Text = wholeName, Value = customer.Id.ToString() };
+                listOfCustomers.Add(x);
+
+            
+                
+            }
 
             foreach (var x in allCarTypes)
             {
@@ -39,6 +55,7 @@ namespace Biluthyrning.Controllers
                 }
                 );
             }
+            bookingVm.AllCustomers = listOfCustomers;
             bookingVm.AllCarTypes = list;
             return View(bookingVm);
         }
@@ -56,7 +73,9 @@ namespace Biluthyrning.Controllers
             {
 
                 var booking = new Booking();
+                
 
+                booking.Id = new Guid();
                 booking.Car = vm.Car;
                 booking.Customer = vm.Customer;
                 booking.PickUpDate = vm.Booking.PickUpDate;
@@ -77,7 +96,7 @@ namespace Biluthyrning.Controllers
             return View(xxx);
         }
 
-        public async Task<IActionResult> Payment(int? id)
+        public async Task<IActionResult> Payment(Guid? id)
         {
             var booking = _context.Booking.Include(x => x.Car).Include(z => z.Customer).FirstOrDefault(y => y.Id == id);
 

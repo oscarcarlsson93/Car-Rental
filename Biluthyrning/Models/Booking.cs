@@ -8,7 +8,7 @@ namespace Biluthyrning.Models
 {
     public class Booking
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         //public int BookingNumber { get; set; }
         public DateTime PickUpDate { get; set; }
         public DateTime ReturnDate { get; set; }

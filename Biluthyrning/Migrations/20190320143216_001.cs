@@ -68,6 +68,8 @@ namespace Biluthyrning.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     PersonalNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -185,8 +187,7 @@ namespace Biluthyrning.Migrations
                 name: "Booking",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     PickUpDate = table.Column<DateTime>(nullable: false),
                     ReturnDate = table.Column<DateTime>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
