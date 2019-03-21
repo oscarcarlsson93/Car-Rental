@@ -9,11 +9,18 @@ namespace Biluthyrning.Models
     public class Booking
     {
         public Guid Id { get; set; }
-        //public int BookingNumber { get; set; }
         public DateTime PickUpDate { get; set; }
+
+        [Display(Name = "Återlämningsdatum")]
+        [Required(ErrorMessage = "Ange datumet för återlämning")]
         public DateTime ReturnDate { get; set; }
+
         public bool Active { get; set; } = true;
+
+        [Display(Name = "Körda kilometer")]
+        [Required(ErrorMessage = "Ange antalet körda kilometer")]
         public int Distance { get; set; }
+
         public decimal RentedDays 
         { 
             get

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biluthyrning.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190320143216_001")]
+    [Migration("20190321165054_001")]
     partial class _001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,8 @@ namespace Biluthyrning.Migrations
 
                     b.Property<int>("DrivenKm");
 
-                    b.Property<string>("RegistrationNumber");
+                    b.Property<string>("RegistrationNumber")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -72,9 +73,11 @@ namespace Biluthyrning.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<string>("PersonalNumber");
 

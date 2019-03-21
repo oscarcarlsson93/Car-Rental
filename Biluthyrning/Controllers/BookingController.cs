@@ -28,23 +28,23 @@ namespace Biluthyrning.Controllers
             var bookingVm = new BookingVm();
 
             string[] allCarTypes = Enum.GetNames(typeof(CarType));
-           var allCustomers = _context.Customer.ToList();
+            var allCustomers = _context.Customer.ToList();
 
             var list = new List<SelectListItem>();
             var listOfCustomers = new List<SelectListItem>();
 
-           
+
 
             foreach (var customer in allCustomers)
             {
-                
+
 
                 string wholeName = $"{customer.FirstName} {customer.LastName}";
                 var x = new SelectListItem() { Text = wholeName, Value = customer.Id.ToString() };
                 listOfCustomers.Add(x);
 
-            
-                
+
+
             }
 
             foreach (var x in allCarTypes)
@@ -100,6 +100,7 @@ namespace Biluthyrning.Controllers
         {
             var booking = _context.Booking.Include(x => x.Car).Include(z => z.Customer).FirstOrDefault(y => y.Id == id);
 
+            
             return View(booking);
         }
 
@@ -110,6 +111,7 @@ namespace Biluthyrning.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Payment(Booking booking)
         {
+
 
             booking.Active = false;
             booking.Car.DrivenKm = booking.Car.DrivenKm + Convert.ToInt32(booking.Distance);
@@ -143,28 +145,11 @@ namespace Biluthyrning.Controllers
                 _context.Update(booking);
                 await _context.SaveChangesAsync();
 
-
                 return View("BookingConfirmation", booking);
-                return RedirectToAction(nameof(Index));
             }
             return View(booking);
         }
 
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Cancel( Booking booking)
-        //{
-
-        //    _context.Update(booking.Car);
-
-
-        //    await _context.SaveChangesAsync();
-
-
-
-        //    return View();
-        //}
 
 
 

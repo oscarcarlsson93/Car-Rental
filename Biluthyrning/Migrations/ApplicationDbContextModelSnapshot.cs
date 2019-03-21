@@ -57,7 +57,8 @@ namespace Biluthyrning.Migrations
 
                     b.Property<int>("DrivenKm");
 
-                    b.Property<string>("RegistrationNumber");
+                    b.Property<string>("RegistrationNumber")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -70,9 +71,11 @@ namespace Biluthyrning.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<string>("PersonalNumber");
 

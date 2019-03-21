@@ -54,7 +54,7 @@ namespace Biluthyrning.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CarType = table.Column<int>(nullable: false),
-                    RegistrationNumber = table.Column<string>(nullable: true),
+                    RegistrationNumber = table.Column<string>(nullable: false),
                     DrivenKm = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -68,8 +68,8 @@ namespace Biluthyrning.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
                     PersonalNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
