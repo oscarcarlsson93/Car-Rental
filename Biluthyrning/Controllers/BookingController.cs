@@ -13,7 +13,6 @@ namespace Biluthyrning.Controllers
 {
     public class BookingController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IBookingRepository _bookingRepository;
         private readonly ICustomerRepository _customerRepository;
 
@@ -21,12 +20,10 @@ namespace Biluthyrning.Controllers
         public static decimal baseDayRental = 100;
         public static decimal kmPrice = 10;
 
-        public BookingController(ApplicationDbContext context, IBookingRepository bookingRepository, ICustomerRepository customerRepository)
+        public BookingController(IBookingRepository bookingRepository, ICustomerRepository customerRepository)
         {
-            _context = context;
             _bookingRepository = bookingRepository;
             _customerRepository = customerRepository;
-
         }
 
 
@@ -67,7 +64,6 @@ namespace Biluthyrning.Controllers
             {
                 _bookingRepository.CreateBooking(vm);
 
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View("Index", vm);
@@ -97,10 +93,6 @@ namespace Biluthyrning.Controllers
             if (ModelState.IsValid)
             {
                 _bookingRepository.Payment(booking);
-
-                _context.Update(booking.Car);
-                await _context.SaveChangesAsync();
-
                 return View("BookingConfirmation", booking);
             }
             return View(booking);

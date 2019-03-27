@@ -30,6 +30,7 @@ namespace Biluthyrning.Repositories
             booking.PickUpDate = vm.Booking.PickUpDate;
 
             _context.Add(booking);
+            _context.SaveChangesAsync();
         }
 
         public IOrderedEnumerable<Booking> GetAllBookings()
@@ -62,6 +63,8 @@ namespace Biluthyrning.Repositories
                 booking.Price = carCost;
             }
             _context.Update(booking);
+            _context.Update(booking.Car);
+            _context.SaveChangesAsync();
         }
     }
 }

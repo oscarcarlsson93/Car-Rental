@@ -21,7 +21,7 @@ namespace Biluthyrning.Repositories
         public void AddCustomer(Customer customer)
         {
             _context.Add(customer);
-
+            _context.SaveChangesAsync();
         }
 
         public List<SelectListItem> AllCustomerList(IEnumerable<Customer> allCustomers)

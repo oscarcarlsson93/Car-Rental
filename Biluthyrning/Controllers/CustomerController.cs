@@ -12,12 +12,10 @@ namespace Biluthyrning.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly ICustomerRepository _customerRepository;
 
-        public CustomerController(ApplicationDbContext context, ICustomerRepository customerRepository)
+        public CustomerController(ICustomerRepository customerRepository)
         {
-            _context = context;
             _customerRepository = customerRepository;
         }
 
@@ -46,7 +44,6 @@ namespace Biluthyrning.Controllers
             if (ModelState.IsValid)
             {
                 _customerRepository.AddCustomer(customer);
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View("Index", customer);
