@@ -30,7 +30,7 @@ namespace Biluthyrning.Repositories
             booking.PickUpDate = vm.Booking.PickUpDate;
 
             _context.Add(booking);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public IOrderedEnumerable<Booking> GetAllBookings()

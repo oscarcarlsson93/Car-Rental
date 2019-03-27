@@ -22,26 +22,33 @@
 
             <h3>Uppgifter om bil och uthyrning</h3>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Car.RegistrationNumber" class="control-label">Bilens registreringsnummer</label>
                 <input asp-for="Car.RegistrationNumber" class="form-control" />
                 <span asp-validation-for="Car.RegistrationNumber" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Booking.PickUpDate" class="control-label">Upphämtningsdatum</label>
                 <input asp-for="Booking.PickUpDate" class="form-control" />
                 <span asp-validation-for="Booking.PickUpDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Car.DrivenKm" class="control-label">Mätarinställning</label>
                 <input asp-for="Car.DrivenKm" class="form-control" />
                 <span asp-validation-for="Car.DrivenKm" class="text-danger"></span>
-            </div>
+            </div>*@
+
+            @*<div>
+                <select asp-for="Car.CarType" asp-items="Model.AllCarTypes"></select>
+                <button type="submit">OK!!</button>*
+            </div>*@
 
             <div>
-                <select asp-for="Car.CarType" asp-items="Model.AllCarTypes"></select>
+                <label asp-for="Car" class="control-label">Välj bil</label>
+                <select asp-for="Booking.CarId" asp-items="Model.AllCars"></select>
                 @*<button type="submit">OK!!</button>*@
             </div>
+
             <br />
 
             <div class="form-group">
