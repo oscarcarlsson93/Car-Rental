@@ -1,4 +1,5 @@
 ﻿using Biluthyrning.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace Biluthyrning.Repositories
         IEnumerable<Booking> GetAllCustomerBookings(int? id);
 
         void AddCustomer(Customer customer);
+
+        List<SelectListItem> AllCustomerList(IEnumerable<Customer> allCustomers);
+
 
 
         //void UpdateCustomer(Customer customer);

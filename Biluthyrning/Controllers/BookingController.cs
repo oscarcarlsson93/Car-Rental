@@ -35,17 +35,11 @@ namespace Biluthyrning.Controllers
             var bookingVm = new BookingVm();
 
             string[] allCarTypes = Enum.GetNames(typeof(CarType));
-            var allCustomers = _customerRepository.GetAllCustomers();
 
             var list = new List<SelectListItem>();
-            var listOfCustomers = new List<SelectListItem>();
 
-            foreach (var customer in allCustomers)
-            {
-                string wholeName = $"{customer.FirstName} {customer.LastName}";
-                var x = new SelectListItem() { Text = wholeName, Value = customer.Id.ToString() };
-                listOfCustomers.Add(x);
-            }
+            var allCustomers = _customerRepository.GetAllCustomers();
+            var listOfCustomers = _customerRepository.AllCustomerList(allCustomers);
 
             foreach (var x in allCarTypes)
             {

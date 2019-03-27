@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Biluthyrning.Data;
 using Biluthyrning.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biluthyrning.Repositories
@@ -21,6 +22,20 @@ namespace Biluthyrning.Repositories
         {
             _context.Add(customer);
 
+        }
+
+        public List<SelectListItem> AllCustomerList(IEnumerable<Customer> allCustomers)
+        {
+            var listOfCustomers = new List<SelectListItem>();
+
+            foreach (var customer in allCustomers)
+            {
+                string wholeName = $"{customer.FirstName} {customer.LastName}";
+                var x = new SelectListItem() { Text = wholeName, Value = customer.Id.ToString() };
+                listOfCustomers.Add(x);
+            }
+
+            return listOfCustomers;
         }
 
         public IEnumerable<Booking> GetAllCustomerBookings(int? id)
