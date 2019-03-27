@@ -64,7 +64,7 @@ namespace Biluthyrning.Repositories
             }
             _context.Update(booking);
             _context.Update(booking.Car);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }
