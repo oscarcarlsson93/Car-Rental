@@ -15,15 +15,18 @@ namespace Biluthyrning.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IBookingRepository _bookingRepository;
+        private readonly ICustomerRepository _customerRepository;
 
 
         public static decimal baseDayRental = 100;
         public static decimal kmPrice = 10;
 
-        public BookingController(ApplicationDbContext context, IBookingRepository bookingRepository)
+        public BookingController(ApplicationDbContext context, IBookingRepository bookingRepository, ICustomerRepository customerRepository)
         {
             _context = context;
             _bookingRepository = bookingRepository;
+            _customerRepository = customerRepository;
+
         }
 
 
@@ -32,7 +35,7 @@ namespace Biluthyrning.Controllers
             var bookingVm = new BookingVm();
 
             string[] allCarTypes = Enum.GetNames(typeof(CarType));
-            var allCustomers = _context.Customer.ToList();
+            var allCustomers = _customerRepository.GetAllCustomers();
 
             var list = new List<SelectListItem>();
             var listOfCustomers = new List<SelectListItem>();
