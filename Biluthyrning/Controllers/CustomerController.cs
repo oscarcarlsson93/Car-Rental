@@ -1,5 +1,6 @@
 ﻿using Biluthyrning.Data;
 using Biluthyrning.Models;
+using Biluthyrning.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,23 +13,24 @@ namespace Biluthyrning.Controllers
     public class CustomerController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICustomerRepository _customerRepository;
 
-        public CustomerController(ApplicationDbContext context)
+        public CustomerController(ApplicationDbContext context, ICustomerRepository customerRepository)
         {
             _context = context;
+            _customerRepository = customerRepository;
         }
 
 
         public IActionResult Index()
         {
-            var allCustomers = _context.Customer.ToList();
-
+            var allCustomers = _customerRepository.GetAllCustomers();
             return View(allCustomers);
         }
 
         public IActionResult AllBookings(int? id)
         {
-            var allBookings = _context.Booking.Include(x => x.Car).Include(z => z.Customer).ToList().OrderBy(k => k.Active == false).Where(m => m.CustomerId == id);
+            var allBookings = _customerRepository.GetAllCustomerBookings(id);
             return View(allBookings);
         }
 
@@ -43,8 +45,7 @@ namespace Biluthyrning.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-
+                _customerRepository.AddCustomer(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
