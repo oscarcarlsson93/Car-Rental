@@ -21,7 +21,7 @@ namespace Biluthyrning.Models
 
         public List<Booking> Bookings { get; set; }
 
-        public bool Booked { get; set; }
+        public bool Booked { get; set; } = false;
 
     }
         public enum CarType

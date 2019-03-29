@@ -1,6 +1,8 @@
 ﻿using Biluthyrning.Data;
+using Biluthyrning.Models;
 using Biluthyrning.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,24 @@ namespace Biluthyrning.Controllers
         {
             var xxx = _carRepository.GetAllCars();
             return View(xxx);  
+        }
+
+        public IActionResult Create()
+        {
+            CarVm carVm = new CarVm();
+
+
+            string[] arr = Enum.GetNames(typeof(CarType));
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (var item in arr)
+            {
+                var y = new SelectListItem() { Text = item, Value = item };
+                list.Add(y);
+            }
+            carVm.AllCarTypes = list;
+            return View(carVm);
+
         }
 
     }

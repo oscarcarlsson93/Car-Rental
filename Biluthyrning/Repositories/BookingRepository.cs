@@ -25,7 +25,7 @@ namespace Biluthyrning.Repositories
             var booking = new Booking();
 
             booking.Id = new Guid();
-            booking.Car = vm.Car;
+            booking.CarId = vm.Booking.CarId;
             booking.CustomerId = vm.Booking.CustomerId;
             booking.PickUpDate = vm.Booking.PickUpDate;
 
@@ -62,6 +62,9 @@ namespace Biluthyrning.Repositories
                 carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
                 booking.Price = carCost;
             }
+
+            booking.Car.Booked = false;
+
             _context.Update(booking);
             _context.Update(booking.Car);
             _context.SaveChanges();

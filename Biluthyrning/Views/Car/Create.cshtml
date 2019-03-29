@@ -1,0 +1,38 @@
+﻿@model Biluthyrning.Models.CarVm
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="Post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h3>Registrera en ny bil</h3>
+
+            <div class="form-group">
+                <label asp-for="Car.RegistrationNumber" class="control-label">Registreringsnummer</label>
+                <input asp-for="Car.RegistrationNumber" class="form-control" />
+                <span asp-validation-for="Car.RegistrationNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.DrivenKm" class="control-label">Antal körda km</label>
+                <input asp-for="Car.DrivenKm" class="form-control" />
+                <span asp-validation-for="Car.DrivenKm" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Car.CarType" class="control-label">Typ av bil</label>
+
+                <select asp-for="Car.CarType" asp-items="Model.AllCarTypes"></select>
+                @*<button type="submit">OK!!</button>**@
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <input type="submit" value="Spara bil" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

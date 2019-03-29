@@ -18,6 +18,8 @@ namespace Biluthyrning.Repositories
 
         void AddCar(Car car);
 
+        void UpdateCarStatus(int? id);
+
         List<SelectListItem> AllCarList(IEnumerable<Car> allCars);
     }
 }

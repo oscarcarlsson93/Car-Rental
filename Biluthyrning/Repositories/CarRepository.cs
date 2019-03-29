@@ -49,5 +49,15 @@ namespace Biluthyrning.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void UpdateCarStatus(int? id)
+        {
+            var car = _context.Car.FirstOrDefault(x => x.Id == id);
+            car.Booked = true;
+
+            _context.Update(car);
+            _context.SaveChanges();
+            
+        }
     }
 }
