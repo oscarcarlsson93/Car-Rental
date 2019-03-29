@@ -20,7 +20,8 @@ namespace Biluthyrning.Repositories
 
         public void AddCar(Car car)
         {
-            throw new NotImplementedException();
+            _context.Add(car);
+            _context.SaveChanges();
         }
 
         public List<SelectListItem> AllCarList(IEnumerable<Car> allCars)

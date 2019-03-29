@@ -45,5 +45,17 @@ namespace Biluthyrning.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Car car)
+        {
+            if (ModelState.IsValid)
+            {
+                _carRepository.AddCar(car);
+                return RedirectToAction(nameof(Index));
+            }
+            return View("Index", car);
+        }
+
     }
 }
