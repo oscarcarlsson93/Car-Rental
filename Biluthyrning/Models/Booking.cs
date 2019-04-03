@@ -28,7 +28,6 @@ namespace Biluthyrning.Models
         {
             get
             {
-
                 decimal numberOfRentedDays = (ReturnDate - PickUpDate).Days + 1;
                 return numberOfRentedDays;
             }
@@ -44,21 +43,24 @@ namespace Biluthyrning.Models
 
         public class ValidationRentedDays : ValidationAttribute
         {
+
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-                var rentedDays = int.Parse(value);
 
-                if (value < 1)
+                var rentedDays = value.ToString();
+                var hyrdaDagar = int.Parse(rentedDays);
+
+                if (hyrdaDagar > 1)
                 {
-                    return new ValidationResult("Ange ett datum senare än upphämtningsdatumet");
+                    return ValidationResult.Success;
                 }
                 else
                 {
-                    return base.IsValid(value, validationContext);
-                    //return ValidationResult.Success;
+                    return new ValidationResult("Inlämningsdatumet måste vara efter uthyrningsdatumet");
                 }
+
 
             }
         }
     }
-    }
+}
