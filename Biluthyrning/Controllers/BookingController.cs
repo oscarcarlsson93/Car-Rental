@@ -55,7 +55,7 @@ namespace Biluthyrning.Controllers
         {
             if (ModelState.IsValid)
             {
-                _bookingRepository.CreateBooking(vm);
+               _bookingRepository.CreateBooking(vm);
                 _carRepository.UpdateCarStatus(vm.Booking.CarId);
                 return RedirectToAction(nameof(Index));
             }
@@ -80,8 +80,16 @@ namespace Biluthyrning.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Payment(Booking booking)
         {
-            //booking.Car.Booked = false;
-            booking.Active = false;
+            //if (booking.RentedDays < 1)
+            //{
+
+            //    return View(booking);
+            //}
+            //else
+
+            
+
+                booking.Active = false;
             booking.Car.DrivenKm = booking.Car.DrivenKm + Convert.ToInt32(booking.Distance);
 
             if (ModelState.IsValid)

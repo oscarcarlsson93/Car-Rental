@@ -17,6 +17,7 @@ namespace Biluthyrning.Repositories
         IEnumerable<Booking> GetAllCarBookings(int? id);
 
         void AddCar(Car car);
+        void DeleteCar(Car car);
 
         void UpdateCarStatus(int? id);
 

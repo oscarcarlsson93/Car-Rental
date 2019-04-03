@@ -57,5 +57,23 @@ namespace Biluthyrning.Controllers
             return View("Index", car);
         }
 
+
+        public IActionResult Delete(int? id)
+        {
+            var car = _carRepository.GetCarById(id);
+
+            return View(car);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteCar(int? id)
+        {
+            var car = _carRepository.GetCarById(id);
+            _carRepository.DeleteCar(car);
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

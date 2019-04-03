@@ -28,6 +28,7 @@ namespace Biluthyrning.Controllers
 
         public IActionResult AllBookings(int? id)
         {
+           //var customer = _customerRepository.GetCustomerById(id);
             var allBookings = _customerRepository.GetAllCustomerBookings(id);
             return View(allBookings);
         }

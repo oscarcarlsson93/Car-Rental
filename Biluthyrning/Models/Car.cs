@@ -15,8 +15,8 @@ namespace Biluthyrning.Models
 
         [Display(Name = "Nummerskylt")]
         [Required(ErrorMessage = "Du måste ange ett registreringsnummer på bilen")]
-        [RegularExpression("[A-ZÅÄÖ]{3}[0-9]{3}", ErrorMessage = "Ange formatet ABC123")]
-        public string RegistrationNumber { get; set; }
+        [RegularExpression("[A-ZÅÄÖa-zåäö]{3}[0-9]{3}", ErrorMessage = "Ange formatet ABC123")]
+        public string RegistrationNumber { get; set; } 
         public int DrivenKm { get; set; }
 
         public List<Booking> Bookings { get; set; }

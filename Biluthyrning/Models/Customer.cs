@@ -19,7 +19,7 @@ namespace Biluthyrning.Models
         public string LastName { get; set; }
 
         [Display(Name = "Personnummer")]
-        [RegularExpression("^[0-9]{2}([0][1-9]|[1][1-2])([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])-[0-9]{4}$", ErrorMessage = "Ange formatet YYMMDD-XXXX tack")]
+        [RegularExpression("^[0-9]{2}([0][1-9]|[1][1-2])([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])-?[0-9]{4}$", ErrorMessage = "Ange formatet YYMMDD-XXXX tack")]
         public string PersonalNumber { get; set; }
 
         public List<Booking> Bookings { get; set; }

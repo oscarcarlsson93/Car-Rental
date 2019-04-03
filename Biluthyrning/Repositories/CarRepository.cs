@@ -20,6 +20,8 @@ namespace Biluthyrning.Repositories
 
         public void AddCar(Car car)
         {
+            car.RegistrationNumber = car.RegistrationNumber.ToUpper();
+
             _context.Add(car);
             _context.SaveChanges();
         }
@@ -36,6 +38,12 @@ namespace Biluthyrning.Repositories
             return listOfCars;
         }
 
+        public void DeleteCar(Car car)
+        {
+                _context.Car.Remove(car);
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Booking> GetAllCarBookings(int? id)
         {
             throw new NotImplementedException();
@@ -48,7 +56,8 @@ namespace Biluthyrning.Repositories
 
         public Car GetCarById(int? id)
         {
-            throw new NotImplementedException();
+            return _context.Car.FirstOrDefault(x => x.Id == id);
+
         }
 
         public void UpdateCarStatus(int? id)
@@ -58,7 +67,7 @@ namespace Biluthyrning.Repositories
 
             _context.Update(car);
             _context.SaveChanges();
-            
+
         }
     }
 }

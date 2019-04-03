@@ -51,7 +51,7 @@ namespace Biluthyrning.Repositories
 
         public Customer GetCustomerById(int? id)
         {
-            throw new NotImplementedException();
+           return _context.Customer.FirstOrDefault(x => x.Id == id);
         }
     }
 }
