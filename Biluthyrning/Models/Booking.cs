@@ -12,32 +12,36 @@ namespace Biluthyrning.Models
         public DateTime PickUpDate { get; set; }
 
         [Display(Name = "Återlämningsdatum")]
-        [Required(ErrorMessage = "Ange datumet för återlämning")]
-        public DateTime ReturnDate { get; set; } 
+        //[Required(ErrorMessage = "Ange datumet för återlämning")]
+        public DateTime? ReturnDate { get; set; } 
 
-
-        public bool Active { get; set; } = true;
 
         [Display(Name = "Körda kilometer")]
         [Required(ErrorMessage = "Ange antalet körda kilometer")]
         public int Distance { get; set; }
-        
-      
-        //[ValidationRentedDays]
+
+
+        [ValidationRentedDays]
         public decimal RentedDays
         {
             get
             {
-                decimal numberOfRentedDays = (ReturnDate - PickUpDate).Days + 1;
-                if (ReturnDate == null)
+                if (ReturnDate != null)
+                {
+                   
+                decimal numberOfRentedDays = (ReturnDate - PickUpDate).Value.Days + 1;
+                return numberOfRentedDays;
+
+                }
+                else
                 {
                     return 1;
                 }
-                else
-                return numberOfRentedDays;
             }
         }
         public decimal Price { get; set; }
+
+        public bool Active { get; set; } = true;
 
         public Car Car { get; set; }
         public int CarId { get; set; }
@@ -45,23 +49,23 @@ namespace Biluthyrning.Models
         public int CustomerId { get; set; }
 
 
-        //public class ValidationRentedDays : ValidationAttribute
-        //{
-        //    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        //    {
-        //        var rentedDays = value.ToString();
-        //        var hyrdaDagar = int.Parse(rentedDays);
-                
+        public class ValidationRentedDays : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                var rentedDays = value.ToString();
+                var hyrdaDagar = int.Parse(rentedDays);
 
-        //        if (hyrdaDagar > 0)
-        //        {
-        //            return ValidationResult.Success;
-        //        }
-        //        else
-        //        {
-        //            return new ValidationResult("Inlämningsdatumet måste vara efter uthyrningsdatumet");
-        //        }
-        //    }
-        //}
+
+                if (hyrdaDagar > 0)
+                {
+                    return ValidationResult.Success;
+                }
+                else
+                {
+                    return new ValidationResult("Inlämningsdatumet måste vara efter uthyrningsdatumet");
+                }
+            }
+        }
     }
 }

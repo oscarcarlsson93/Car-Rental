@@ -60,6 +60,12 @@ namespace Biluthyrning.Repositories
 
         }
 
+        public void UpdateCar(Car car)
+        {
+            _context.Update(car);
+            _context.SaveChanges();
+        }
+
         public void UpdateCarStatus(int? id)
         {
             var car = _context.Car.FirstOrDefault(x => x.Id == id);

@@ -65,14 +65,21 @@ namespace Biluthyrning.Controllers
             return View(car);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("EditCar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteCar(int? id)
+        public async Task<IActionResult> EditCar(Car car)
         {
-            var car = _carRepository.GetCarById(id);
-            _carRepository.DeleteCar(car);
+            //var car = _carRepository.GetCarById(id);
+            _carRepository.UpdateCar(car);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            var car = _carRepository.GetCarById(id);
+
+            return View(car);
         }
 
     }

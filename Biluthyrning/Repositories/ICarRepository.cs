@@ -18,6 +18,7 @@ namespace Biluthyrning.Repositories
 
         void AddCar(Car car);
         void DeleteCar(Car car);
+        void UpdateCar(Car car);
 
         void UpdateCarStatus(int? id);
 

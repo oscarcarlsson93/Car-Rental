@@ -7,6 +7,8 @@
 <p>
     <a asp-action="Create">Lägg till bil</a>
 </p>
+
+<h3>Bilar tillgängliga för uthyrning</h3>
 <table class="table">
     <thead>
         <tr>
@@ -26,27 +28,75 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Where(x => x.ForRent == true))
         {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Booked)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DrivenKm) km
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Ändra bilens status</a> |
+                        @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                        <a asp-action="Delete" asp-route-id="@item.Id">Ta bort bilen</a>
+                    </td>
+                </tr>
+            
+        }
+    </tbody>
+</table>
+
+<h3>Bilar ej tillgängliga för uthyrning</h3>
+
+<table class="table">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Booked)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegistrationNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DrivenKm) km
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            <th>
+                Bokad
+            </th>
+            <th>
+                Biltyp
+            </th>
+            <th>
+                Registeringsnummer
+            </th>
+            <th>
+                Mätarinställning
+            </th>
+            <th></th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(x => x.ForRent == false))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Booked)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DrivenKm) km
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Ändra bilens status</a> |
+                    @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                    <a asp-action="Delete" asp-route-id="@item.Id">Ta bort bilen</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
