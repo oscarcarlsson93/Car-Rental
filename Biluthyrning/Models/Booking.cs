@@ -13,8 +13,7 @@ namespace Biluthyrning.Models
 
         [Display(Name = "Återlämningsdatum")]
         [Required(ErrorMessage = "Ange datumet för återlämning")]
-        public DateTime ReturnDate { get; set; }
-
+        public DateTime ReturnDate { get; set; } 
 
 
         public bool Active { get; set; } = true;
@@ -22,13 +21,19 @@ namespace Biluthyrning.Models
         [Display(Name = "Körda kilometer")]
         [Required(ErrorMessage = "Ange antalet körda kilometer")]
         public int Distance { get; set; }
-
-        [ValidationRentedDays]
+        
+      
+        //[ValidationRentedDays]
         public decimal RentedDays
         {
             get
             {
                 decimal numberOfRentedDays = (ReturnDate - PickUpDate).Days + 1;
+                if (ReturnDate == null)
+                {
+                    return 1;
+                }
+                else
                 return numberOfRentedDays;
             }
         }
@@ -40,27 +45,23 @@ namespace Biluthyrning.Models
         public int CustomerId { get; set; }
 
 
+        //public class ValidationRentedDays : ValidationAttribute
+        //{
+        //    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        //    {
+        //        var rentedDays = value.ToString();
+        //        var hyrdaDagar = int.Parse(rentedDays);
+                
 
-        public class ValidationRentedDays : ValidationAttribute
-        {
-
-            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-            {
-
-                var rentedDays = value.ToString();
-                var hyrdaDagar = int.Parse(rentedDays);
-
-                if (hyrdaDagar > 1)
-                {
-                    return ValidationResult.Success;
-                }
-                else
-                {
-                    return new ValidationResult("Inlämningsdatumet måste vara efter uthyrningsdatumet");
-                }
-
-
-            }
-        }
+        //        if (hyrdaDagar > 0)
+        //        {
+        //            return ValidationResult.Success;
+        //        }
+        //        else
+        //        {
+        //            return new ValidationResult("Inlämningsdatumet måste vara efter uthyrningsdatumet");
+        //        }
+        //    }
+        //}
     }
 }

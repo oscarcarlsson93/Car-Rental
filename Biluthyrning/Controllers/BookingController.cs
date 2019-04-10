@@ -31,6 +31,8 @@ namespace Biluthyrning.Controllers
 
         public IActionResult Index()
         {
+            
+
             var bookingVm = new BookingVm();
 
             var allCustomers = _customerRepository.GetAllCustomers();
@@ -38,6 +40,7 @@ namespace Biluthyrning.Controllers
 
             var allCars = _carRepository.GetAllCars().Where( x => x.Booked == false);
             var listOfCars = _carRepository.AllCarList(allCars);
+
             
             bookingVm.AllCustomers = listOfCustomers;
             bookingVm.AllCars = listOfCars;
@@ -53,6 +56,7 @@ namespace Biluthyrning.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Car,Customer,Booking")] BookingVm vm)
         {
+            
             if (ModelState.IsValid)
             {
                _bookingRepository.CreateBooking(vm);
@@ -80,14 +84,13 @@ namespace Biluthyrning.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Payment(Booking booking)
         {
-            //if (booking.RentedDays < 1)
-            //{
+            if (booking.RentedDays < 1)
+            {
 
-            //    return View(booking);
-            //}
-            //else
+                return View(booking);
+            }
+            else
 
-            
 
                 booking.Active = false;
             booking.Car.DrivenKm = booking.Car.DrivenKm + Convert.ToInt32(booking.Distance);
