@@ -62,8 +62,21 @@ namespace Biluthyrning.Repositories
 
         public void UpdateCar(Car car)
         {
+            //car.Cleaning = true;
+
+            //car.Counter ++;
+
+            //if (car.Counter % 3 == 0)
+            //{
+            //    car.Service = true;
+            //}
+
+            //if (car.DrivenKm > 2000)
+            //{
+            //    car.Dispose = true;
+            //}
             _context.Update(car);
-            _context.SaveChanges();
+           _context.SaveChanges();
         }
 
         public void UpdateCarStatus(int? id)

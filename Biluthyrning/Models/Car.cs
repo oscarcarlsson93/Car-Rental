@@ -22,6 +22,12 @@ namespace Biluthyrning.Models
         public bool Booked { get; set; } = false;
 
         public bool ForRent { get; set; }
+
+        public bool Cleaning { get; set; }
+        public bool Service { get; set; }
+        public bool Dispose { get; set; }
+
+        public int Counter { get; set; }
     }
         public enum CarType
         {

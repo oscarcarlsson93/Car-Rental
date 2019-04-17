@@ -17,7 +17,6 @@ namespace Biluthyrning.Controllers
         private readonly ICustomerRepository _customerRepository;
         private readonly ICarRepository _carRepository;
 
-
         public static decimal baseDayRental = 100;
         public static decimal kmPrice = 10;
 
@@ -36,9 +35,9 @@ namespace Biluthyrning.Controllers
             var allCustomers = _customerRepository.GetAllCustomers();
             var listOfCustomers = _customerRepository.AllCustomerList(allCustomers);
 
-            var allCars = _carRepository.GetAllCars().Where( x => x.Booked == false && x.ForRent == true);
+            var allCars = _carRepository.GetAllCars().Where(x => x.Booked == false && x.ForRent == true);
             var listOfCars = _carRepository.AllCarList(allCars);
-            
+
             bookingVm.AllCustomers = listOfCustomers;
             bookingVm.AllCars = listOfCars;
             return View(bookingVm);
@@ -53,10 +52,9 @@ namespace Biluthyrning.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Car,Customer,Booking")] BookingVm vm)
         {
-            
             if (ModelState.IsValid)
             {
-               _bookingRepository.CreateBooking(vm);
+                _bookingRepository.CreateBooking(vm);
                 _carRepository.UpdateCarStatus(vm.Booking.CarId);
                 return RedirectToAction(nameof(Index));
             }
@@ -74,19 +72,37 @@ namespace Biluthyrning.Controllers
         {
             var booking = _bookingRepository.GetBookingById(id);
 
-            return  View(booking);
+            return View(booking);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Payment(Booking booking)
+        public IActionResult Payment(Booking booking)
         {
-                booking.Active = false;
+
+            booking.Car.Cleaning = true;
+
+            booking.Car.Counter++;
+
+
+            if (booking.Car.Counter % 3 == 0)
+            {
+                booking.Car.Service = true;
+            }
+
+            if (booking.Car.DrivenKm > 2000)
+            {
+                booking.Car.Dispose = true;
+            }
+
+            booking.Active = false;
             booking.Car.ForRent = true;
             booking.Car.DrivenKm = booking.Car.DrivenKm + Convert.ToInt32(booking.Distance);
 
             if (ModelState.IsValid)
             {
+                //var car = _carRepository.GetCarById(booking.CarId);
+                //_carRepository.UpdateCar(car);
                 _bookingRepository.Payment(booking);
                 return View("BookingConfirmation", booking);
             }

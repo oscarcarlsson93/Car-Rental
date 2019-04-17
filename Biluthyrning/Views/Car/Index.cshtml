@@ -16,6 +16,15 @@
                 Bokad
             </th>
             <th>
+                Ska städas
+            </th>
+            <th>
+                Dags för service
+            </th>
+            <th>
+                Ska tas bort
+            </th>
+            <th>
                 Biltyp
             </th>
             <th>
@@ -31,25 +40,34 @@
         @foreach (var item in Model.Where(x => x.ForRent == true))
         {
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Booked)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CarType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RegistrationNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DrivenKm) km
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Ändra bilens status</a> |
-                        @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                        <a asp-action="Delete" asp-route-id="@item.Id">Ta bort bilen</a>
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booked)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cleaning)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Service)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dispose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistrationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrivenKm) km
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Ändra bilens status</a> |
+                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                <a asp-action="Delete" asp-route-id="@item.Id">Ta bort bilen</a>
+            </td>
+        </tr>
             
         }
     </tbody>

@@ -16,5 +16,7 @@ namespace Biluthyrning.Repositories
         void CreateBooking(BookingVm vm);
 
         void Payment(Booking booking);
+
+        
     }
 }
