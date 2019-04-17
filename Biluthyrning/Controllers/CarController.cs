@@ -31,7 +31,6 @@ namespace Biluthyrning.Controllers
         {
             CarVm carVm = new CarVm();
 
-
             string[] arr = Enum.GetNames(typeof(CarType));
             List<SelectListItem> list = new List<SelectListItem>();
 
@@ -78,7 +77,6 @@ namespace Biluthyrning.Controllers
         public IActionResult Edit(int? id)
         {
             var car = _carRepository.GetCarById(id);
-
             return View(car);
         }
 

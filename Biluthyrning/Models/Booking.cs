@@ -16,11 +16,9 @@ namespace Biluthyrning.Models
         [ValidationReturnDate]
         public DateTime? ReturnDate { get; set; } 
 
-
         [Display(Name = "Körda kilometer")]
         [Required(ErrorMessage = "Ange antalet körda kilometer")]
         public int Distance { get; set; }
-
 
         public decimal RentedDays
         {
@@ -64,8 +62,6 @@ namespace Biluthyrning.Models
                 //return base.IsValid(value, validationContext);
             }
         }
-
-
 
         //public class ValidationRentedDays : ValidationAttribute
         //{

@@ -34,14 +34,12 @@ namespace Biluthyrning.Repositories
                 var x = new SelectListItem() { Text = wholeName, Value = customer.Id.ToString() };
                 listOfCustomers.Add(x);
             }
-
             return listOfCustomers;
         }
 
         public IEnumerable<Booking> GetAllCustomerBookings(int? id)
         {
             return _context.Booking.Include(x => x.Car).Include(z => z.Customer).ToList().OrderBy(k => k.Active == false).Where(m => m.CustomerId == id);
-
         }
 
         public IEnumerable<Customer> GetAllCustomers()

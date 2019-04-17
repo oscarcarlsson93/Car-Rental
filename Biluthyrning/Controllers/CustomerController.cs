@@ -19,7 +19,6 @@ namespace Biluthyrning.Controllers
             _customerRepository = customerRepository;
         }
 
-
         public IActionResult Index()
         {
             var allCustomers = _customerRepository.GetAllCustomers();
