@@ -93,6 +93,7 @@ namespace Biluthyrning.Controllers
 
 
                 booking.Active = false;
+            booking.Car.ForRent = true;
             booking.Car.DrivenKm = booking.Car.DrivenKm + Convert.ToInt32(booking.Distance);
 
             if (ModelState.IsValid)

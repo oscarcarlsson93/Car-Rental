@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Biluthyrning.Models.Booking>
 
+
+
+<h3>Pågående uthyrningar</h3>
+
 <table class="table">
     <thead>
         <tr>
@@ -35,60 +39,154 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Where(x => x.Active == true))
         {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.RegistrationNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.CarType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                    @Html.DisplayFor(modelItem => item.Customer.LastName)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickUpDate)
+                </td>
+                <td>
+                    @if (item.Active == false)
+                    {
+
+                        @Html.DisplayFor(modelItem => item.ReturnDate)
+                    }
+                </td>
+                <td>
+                    @if (item.Active == false)
+                    {
+                        @Html.DisplayFor(modelItem => item.RentedDays)
+
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+
+
+                    @Html.DisplayFor(modelItem => item.Price)
+
+                </td>
+                <td>
+                    @if (item.Active == true)
+                    {
+                        <a asp-action="Payment" asp-route-id="@item.Id">Avsluta bokning</a>
+
+                    }
+                    @*| <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>*@
+                    @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h3>Avslutade uthyrningar</h3>
+
+<table class="table">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Car.RegistrationNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Car.CarType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.FirstName)
-                @Html.DisplayFor(modelItem => item.Customer.LastName)
+            <th>
+                Aktiv
+            </th>
+            <th>
+                Regnr
+            </th>
+            <th>
+                Bil
+            </th>
+            <th>
+                Namn
+            </th>
+            <th>
+                Upphämtningsdatum
+            </th>
+            <th>
+                Inlämningsdatum
+            </th>
+            <th>
+                Hyrda dagar
+            </th>
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PickUpDate)
-            </td>
-            <td>
-                @if (item.Active == false)
-                {
-
-                    @Html.DisplayFor(modelItem => item.ReturnDate)
-                }
-            </td>
-            <td>
-                @if (item.Active == false)
-                {
-                    @Html.DisplayFor(modelItem => item.RentedDays)
-
-                }
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-
-
-                @Html.DisplayFor(modelItem => item.Price)
-
-            </td>
-            <td>
-                @if (item.Active == true)
-                {
-                    <a asp-action="Payment" asp-route-id="@item.Id">Avsluta bokning</a>
-
-                }
-                @*| <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>*@
-                @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-            </td>
+            <th>
+                Bokningsnummer
+            </th>
+            <th>
+                Kostnad
+            </th>
+            <th></th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(x => x.Active == false))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.RegistrationNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.CarType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                    @Html.DisplayFor(modelItem => item.Customer.LastName)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickUpDate)
+                </td>
+                <td>
+                    @if (item.Active == false)
+                    {
+
+                        @Html.DisplayFor(modelItem => item.ReturnDate)
+                    }
+                </td>
+                <td>
+                    @if (item.Active == false)
+                    {
+                        @Html.DisplayFor(modelItem => item.RentedDays)
+
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+
+
+                    @Html.DisplayFor(modelItem => item.Price)
+
+                </td>
+                <td>
+                    @if (item.Active == true)
+                    {
+                        <a asp-action="Payment" asp-route-id="@item.Id">Avsluta bokning</a>
+
+                    }
+                    @*| <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>*@
+                    @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
         }
     </tbody>
 </table>
