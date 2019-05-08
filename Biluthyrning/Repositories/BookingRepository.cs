@@ -20,7 +20,7 @@ namespace Biluthyrning.Repositories
             _context = context;
         }
 
-        public async void CreateBooking(BookingVm vm)
+        public void CreateBooking(BookingVm vm)
         {
             var booking = new Booking();
 
@@ -30,7 +30,7 @@ namespace Biluthyrning.Repositories
             booking.PickUpDate = vm.Booking.PickUpDate;
 
             _context.Add(booking);
-          await _context.SaveChangesAsync();
+           _context.SaveChanges();
         }
 
         public IOrderedEnumerable<Booking> GetAllBookings()

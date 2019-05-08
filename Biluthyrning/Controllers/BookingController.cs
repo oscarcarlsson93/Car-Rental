@@ -50,7 +50,7 @@ namespace Biluthyrning.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Car,Customer,Booking")] BookingVm vm)
+        public IActionResult Create([Bind("Id,Car,Customer,Booking")] BookingVm vm)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace Biluthyrning.Controllers
 
         public async Task<IActionResult> Payment(Guid? id)
         {
-            var booking = _bookingRepository.GetBookingById(id);
+            Booking booking = _bookingRepository.GetBookingById(id);
 
             return View(booking);
         }
@@ -82,11 +82,9 @@ namespace Biluthyrning.Controllers
 
             booking.Car.Cleaning = true;
 
-            booking.Car.Counter++;
+            booking.Car.Counter = +1;
 
-
-
-
+            
             if (booking.Car.Counter % 3 == 0)
             {
                 booking.Car.Service = true;
@@ -103,8 +101,6 @@ namespace Biluthyrning.Controllers
 
             if (ModelState.IsValid)
             {
-
-
                 _carRepository.UpdateCar(booking.Car);
                 //var car = _carRepository.GetCarById(booking.CarId);
                 _bookingRepository.Payment(booking);
