@@ -82,7 +82,7 @@ namespace Biluthyrning.Controllers
 
             booking.Car.Cleaning = true;
 
-            booking.Car.Counter = +1;
+            booking.Car.Counter += 1;
 
             
             if (booking.Car.Counter % 3 == 0)
