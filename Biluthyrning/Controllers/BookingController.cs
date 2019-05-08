@@ -85,6 +85,8 @@ namespace Biluthyrning.Controllers
             booking.Car.Counter++;
 
 
+
+
             if (booking.Car.Counter % 3 == 0)
             {
                 booking.Car.Service = true;
@@ -101,8 +103,10 @@ namespace Biluthyrning.Controllers
 
             if (ModelState.IsValid)
             {
+
+
+                _carRepository.UpdateCar(booking.Car);
                 //var car = _carRepository.GetCarById(booking.CarId);
-                //_carRepository.UpdateCar(car);
                 _bookingRepository.Payment(booking);
                 return View("BookingConfirmation", booking);
             }
