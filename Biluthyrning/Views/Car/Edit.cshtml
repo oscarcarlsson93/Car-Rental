@@ -32,10 +32,15 @@
                 <input type="checkbox" asp-for="ForRent" />
             </div>
             <div>
-                <label asp-for="Cleaning"></label>
+                <label asp-for="Cleaning">Ska städas</label>
                 <input type="checkbox" asp-for="Cleaning" />
             </div>
             <input type="hidden" asp-for="Counter" />
+            <input type="hidden" asp-for="Dispose" />
+            <input type="hidden" asp-for="Service" />
+
+            @*<input type="hidden" asp-for="Cleaning" />*@
+
 
             <div class="form-group">
                 <input type="submit" value="Spara" class="btn btn-default" />
