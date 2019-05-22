@@ -14,11 +14,13 @@ namespace Biluthyrning.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ICarRepository _carRepository;
+        private readonly IEventsRepository _eventsRepository;
 
-        public CarController(ApplicationDbContext context, ICarRepository carRepository)
+        public CarController(ApplicationDbContext context, ICarRepository carRepository, IEventsRepository eventsRepository)
         {
             _context = context;
             _carRepository = carRepository;
+            _eventsRepository = eventsRepository;
         }
 
         public IActionResult Index()
@@ -66,10 +68,21 @@ namespace Biluthyrning.Controllers
 
         [HttpPost, ActionName("EditCar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditCar(Car car)
+        public async Task<IActionResult> EditCar(CarVm carVm)
         {
-            //var car = _carRepository.GetCarById(id);
-            _carRepository.UpdateCar(car);
+            if (carVm.Event.EventType == EventType.Cleaning)
+            {
+                carVm.Car.Cleaning = false;
+            }
+            if (carVm.Event.EventType == EventType.Service)
+            {
+                carVm.Car.Service = false;
+            }
+                  //var car = _carRepository.GetCarById(id);
+            _carRepository.UpdateCar(carVm.Car);
+
+            _eventsRepository.AddEvent(carVm);
+
 
             return RedirectToAction(nameof(Index));
         }
@@ -77,8 +90,42 @@ namespace Biluthyrning.Controllers
         public IActionResult Edit(int? id)
         {
             var car = _carRepository.GetCarById(id);
-            return View(car);
+
+            var carVm = new CarVm();
+
+
+            string[] arr = Enum.GetNames(typeof(EventType));
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (var item in arr)
+            {
+                var y = new SelectListItem() { Text = item, Value = item };
+                list.Add(y);
+            }
+
+
+            carVm.AllEventTypes = list;
+            carVm.Car = car;
+
+
+
+            return View(carVm);
         }
+
+        public IActionResult CarEvents(int? id)
+        {
+
+          var carEvents =   _eventsRepository.GetAllCarEvents(id);
+            return View(carEvents);
+        }
+        
+        public IActionResult EventIndex()
+        {
+            var allEvents = _eventsRepository.GetAllEvents();
+
+            return View(allEvents);
+        }
+        
 
     }
 }

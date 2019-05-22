@@ -41,6 +41,7 @@ namespace Biluthyrning
             services.AddTransient<IBookingRepository, BookingRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ICarRepository, CarRepository>();
+            services.AddTransient<IEventsRepository, EventsRepository>();
 
 
 

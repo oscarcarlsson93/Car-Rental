@@ -21,6 +21,8 @@ namespace Biluthyrning.Data
         public DbSet<Booking> Booking { get; set; }
         public DbSet<Customer> Customer { get; set; }
 
+        public DbSet<Events> Events { get; set; }
+
 
     }
 }

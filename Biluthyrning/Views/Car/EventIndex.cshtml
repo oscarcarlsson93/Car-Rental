@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Biluthyrning.Models.Events>
+
+<h3>Loggar för alla bilar</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Typ av åtgärd
+            </th>
+            <th>
+                Datum
+            </th>
+            <th>
+                Registeringsnummer
+            </th>
+         
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.RegistrationNumber)
+                </td>
+             
+            </tr>
+        }
+    </tbody>
+</table>

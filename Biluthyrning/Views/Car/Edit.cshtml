@@ -1,4 +1,4 @@
-﻿@model Biluthyrning.Models.Car
+﻿@model Biluthyrning.Models.CarVm
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,32 +12,44 @@
     <div class="col-md-4">
         <form asp-action="EditCar">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Car.Id" />
             <div class="form-group">
-                <label asp-for="RegistrationNumber" class="control-label"></label>
-                <input asp-for="RegistrationNumber" class="form-control" />
-                <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
+                <label asp-for="Car.RegistrationNumber" class="control-label"></label>
+                <input asp-for="Car.RegistrationNumber" class="form-control" />
+                <span asp-validation-for="Car.RegistrationNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DrivenKm" class="control-label"></label>
-                <input asp-for="DrivenKm" class="form-control" />
-                <span asp-validation-for="DrivenKm" class="text-danger"></span>
+                <label asp-for="Car.DrivenKm" class="control-label"></label>
+                <input asp-for="Car.DrivenKm" class="form-control" />
+                <span asp-validation-for="Car.DrivenKm" class="text-danger"></span>
             </div>
             @*<div>
             <select asp-for="Product.CategoryId" asp-items="Model.AllCategories"></select>
 
         </div>*@
+
             <div>
-                <label asp-for="ForRent"></label>
-                <input type="checkbox" asp-for="ForRent" />
-            </div>
+            <label asp-for="Car.ForRent"></label>
+            <input type="checkbox" asp-for="Car.ForRent" />
+        </div>
+
+        @*<div>
+            <label asp-for="Car.Cleaning">Ska städas</label>
+            <input type="checkbox" asp-for="Car.Cleaning" />
+        </div>*@
+
+            <input type="hidden" asp-for="Car.Counter" />
+            <input type="hidden" asp-for="Car.Dispose" />
+            <input type="hidden" asp-for="Car.Service" />
+            <input type="hidden" asp-for="Car.Cleaning" />
+
+
+
             <div>
-                <label asp-for="Cleaning">Ska städas</label>
-                <input type="checkbox" asp-for="Cleaning" />
+                @*<label asp-for="Car" class="control-label">Välj bil</label>*@
+                <select asp-for="Event.EventType" asp-items="Model.AllEventTypes"></select>
+                @*<button type="submit">OK!!</button>*@
             </div>
-            <input type="hidden" asp-for="Counter" />
-            <input type="hidden" asp-for="Dispose" />
-            <input type="hidden" asp-for="Service" />
 
             @*<input type="hidden" asp-for="Cleaning" />*@
 

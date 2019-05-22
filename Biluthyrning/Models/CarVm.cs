@@ -11,5 +11,8 @@ namespace Biluthyrning.Models
         public Car Car { get; set; }
         public IEnumerable<SelectListItem> AllCarTypes { get; set; }
 
+        public IEnumerable<SelectListItem> AllEventTypes { get; set; }
+        public Events Event { get; set; }
+
     }
 }
