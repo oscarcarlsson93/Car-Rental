@@ -43,8 +43,9 @@
             <input type="hidden" asp-for="Car.Service" />
             <input type="hidden" asp-for="Car.Cleaning" />
 
+            <br />
 
-
+            Väl typ av åtgärd
             <div>
                 @*<label asp-for="Car" class="control-label">Välj bil</label>*@
                 <select asp-for="Event.EventType" asp-items="Model.AllEventTypes"></select>
@@ -53,6 +54,7 @@
 
             @*<input type="hidden" asp-for="Cleaning" />*@
 
+            <br />
 
             <div class="form-group">
                 <input type="submit" value="Spara" class="btn btn-default" />

@@ -133,7 +133,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Where(x => x.Active == false))
+        @foreach (var item in Model.Where(x => x.Active == false).OrderByDescending(z => z.PickUpDate))
         {
             <tr>
                 <td>
