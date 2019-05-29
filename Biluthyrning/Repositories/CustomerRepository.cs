@@ -51,5 +51,11 @@ namespace Biluthyrning.Repositories
         {
            return _context.Customer.FirstOrDefault(x => x.Id == id);
         }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            _context.Customer.Update(customer);
+            _context.SaveChanges();
+        }
     }
 }

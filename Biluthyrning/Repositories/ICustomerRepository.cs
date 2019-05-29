@@ -19,6 +19,8 @@ namespace Biluthyrning.Repositories
 
         List<SelectListItem> AllCustomerList(IEnumerable<Customer> allCustomers);
 
+        void UpdateCustomer(Customer customer);
+
 
 
         //void UpdateCustomer(Customer customer);

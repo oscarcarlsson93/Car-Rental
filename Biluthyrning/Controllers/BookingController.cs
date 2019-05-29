@@ -27,7 +27,6 @@ namespace Biluthyrning.Controllers
             _carRepository = carRepository;
         }
 
-
         public IActionResult Index()
         {
             var bookingVm = new BookingVm();
@@ -80,6 +79,11 @@ namespace Biluthyrning.Controllers
         public IActionResult Payment(Booking booking)
         {
 
+            booking.Customer.RentedKm = booking.Customer.RentedKm + booking.Distance;
+            booking.Customer.NumberOfRents += 1;
+            
+
+
             booking.Car.Cleaning = true;
 
             booking.Car.Counter += 1;
@@ -101,6 +105,7 @@ namespace Biluthyrning.Controllers
 
             if (ModelState.IsValid)
             {
+                _customerRepository.UpdateCustomer(booking.Customer);
                 _carRepository.UpdateCar(booking.Car);
                 //var car = _carRepository.GetCarById(booking.CarId);
                 _bookingRepository.Payment(booking);

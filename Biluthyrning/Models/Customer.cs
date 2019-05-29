@@ -23,5 +23,18 @@ namespace Biluthyrning.Models
         public string PersonalNumber { get; set; }
 
         public List<Booking> Bookings { get; set; }
+
+        public MemberLevel MemberLevel { get; set; }
+
+        public int NumberOfRents { get; set; }
+
+        public int RentedKm { get; set; }
+
     }
+        public enum MemberLevel
+        {
+            Bronze,
+            Silver,
+            Gold
+        }
 }
