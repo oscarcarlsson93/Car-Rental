@@ -81,10 +81,6 @@ namespace Biluthyrning.Controllers
 
             //Beräknar kundens bonusnivå
 
-            booking.Customer.RentedKm = booking.Customer.RentedKm + booking.Distance;
-            booking.Customer.NumberOfRents += 1;
-
-
             if (booking.Customer.NumberOfRents < 3)
             {
                 booking.Customer.MemberLevel = MemberLevel.Standard;
@@ -92,6 +88,7 @@ namespace Biluthyrning.Controllers
             if (booking.Customer.NumberOfRents >= 3 && booking.Customer.NumberOfRents < 5)
             {
                 booking.Customer.MemberLevel = MemberLevel.Bronze;
+                
             }
             if (booking.Customer.NumberOfRents >= 5)
             {
@@ -101,6 +98,10 @@ namespace Biluthyrning.Controllers
             {
                 booking.Customer.MemberLevel = MemberLevel.Gold;
             }
+
+            booking.Customer.RentedKm = booking.Customer.RentedKm + booking.Distance;
+            booking.Customer.NumberOfRents += 1;
+            
             //Beräknar bilens status
             booking.Car.Cleaning = true;
 
