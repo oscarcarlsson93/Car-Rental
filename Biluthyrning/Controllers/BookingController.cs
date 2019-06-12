@@ -79,11 +79,29 @@ namespace Biluthyrning.Controllers
         public IActionResult Payment(Booking booking)
         {
 
+            //Beräknar kundens bonusnivå
+
             booking.Customer.RentedKm = booking.Customer.RentedKm + booking.Distance;
             booking.Customer.NumberOfRents += 1;
-            
 
 
+            if (booking.Customer.NumberOfRents < 3)
+            {
+                booking.Customer.MemberLevel = MemberLevel.Standard;
+            }
+            if (booking.Customer.NumberOfRents >= 3 && booking.Customer.NumberOfRents < 5)
+            {
+                booking.Customer.MemberLevel = MemberLevel.Bronze;
+            }
+            if (booking.Customer.NumberOfRents >= 5)
+            {
+                booking.Customer.MemberLevel = MemberLevel.Silver;
+            }
+            if (booking.Customer.NumberOfRents >= 5 && booking.Customer.RentedKm >= 1000)
+            {
+                booking.Customer.MemberLevel = MemberLevel.Gold;
+            }
+            //Beräknar bilens status
             booking.Car.Cleaning = true;
 
             booking.Car.Counter += 1;

@@ -59,27 +59,8 @@ namespace Biluthyrning.Models
                 {
                     return new ValidationResult("Inlämningsdatumet måste vara senare än upphämtningsdatumet");
                 }
-                //return base.IsValid(value, validationContext);
             }
         }
 
-        //public class ValidationRentedDays : ValidationAttribute
-        //{
-        //    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        //    {
-        //        var rentedDays = value.ToString();
-        //        var hyrdaDagar = int.Parse(rentedDays);
-
-
-        //        if (hyrdaDagar > 0)
-        //        {
-        //            return ValidationResult.Success;
-        //        }
-        //        else
-        //        {
-        //            return new ValidationResult("Inlämningsdatumet måste vara efter uthyrningsdatumet");
-        //        }
-        //    }
-        //}
     }
 }

@@ -33,6 +33,7 @@ namespace Biluthyrning.Models
     }
         public enum MemberLevel
         {
+            Standard,
             Bronze,
             Silver,
             Gold
