@@ -81,6 +81,7 @@ namespace Biluthyrning.Controllers
 
             //Beräknar kundens bonusnivå
 
+
             if (booking.Customer.NumberOfRents < 3)
             {
                 booking.Customer.MemberLevel = MemberLevel.Standard;

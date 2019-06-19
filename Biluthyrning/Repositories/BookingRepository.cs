@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Biluthyrning.Data;
 using Biluthyrning.Models;
+using Biluthyrning.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biluthyrning.Repositories
@@ -51,58 +52,11 @@ namespace Biluthyrning.Repositories
 
         public void Payment(Booking booking)
         {
-            decimal carCost;
+                decimal carCost;
 
-            //Standard
+                //Standard
 
-            if (booking.Customer.MemberLevel == MemberLevel.Standard)
-            {
-                if (booking.Car.CarType == CarType.Small)
-                {
-                    carCost = baseDayRental * booking.RentedDays;
-                    booking.Price = carCost;
-                }
-                if (booking.Car.CarType == CarType.Van)
-                {
-                    carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
-                    booking.Price = carCost;
-                }
-                if (booking.Car.CarType == CarType.Minibus)
-                {
-                    carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
-                    booking.Price = carCost;
-                }
-            }
-
-            //Bronze
-
-            if (booking.Customer.MemberLevel == MemberLevel.Bronze)
-            {
-                var baseDayRental = 50;
-                if (booking.Car.CarType == CarType.Small)
-                {
-                    carCost = baseDayRental * booking.RentedDays;
-                    booking.Price = carCost;
-                }
-                if (booking.Car.CarType == CarType.Van)
-                {
-                    carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
-                    booking.Price = carCost;
-                }
-                if (booking.Car.CarType == CarType.Minibus)
-                {
-                    carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
-                    booking.Price = carCost;
-                }
-            }
-
-            //Silver
-
-            if (booking.Customer.MemberLevel == MemberLevel.Silver)
-            {
-                var baseDayRental = 50;
-
-                if (booking.RentedDays <= 2)
+                if (booking.Customer.MemberLevel == MemberLevel.Standard)
                 {
 
                     if (booking.Car.CarType == CarType.Small)
@@ -120,60 +74,13 @@ namespace Biluthyrning.Repositories
                         carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
                         booking.Price = carCost;
                     }
-
                 }
 
-                if (booking.RentedDays == 3)
+                //Bronze
+
+                if (booking.Customer.MemberLevel == MemberLevel.Bronze)
                 {
-                    if (booking.Car.CarType == CarType.Small)
-                    {
-                        carCost = baseDayRental * (booking.RentedDays - 1);
-                        booking.Price = carCost;
-                    }
-                    if (booking.Car.CarType == CarType.Van)
-                    {
-                        carCost = decimal.Round((baseDayRental * (booking.RentedDays - 1) * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
-                        booking.Price = carCost;
-                    }
-                    if (booking.Car.CarType == CarType.Minibus)
-                    {
-                        carCost = decimal.Round((baseDayRental * (booking.RentedDays - 1) * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
-                        booking.Price = carCost;
-                    }
-                }
-
-                if (booking.RentedDays >= 4)
-                {
-                    if (booking.Car.CarType == CarType.Small)
-                    {
-                        carCost = baseDayRental * (booking.RentedDays - 2);
-                        booking.Price = carCost;
-                    }
-                    if (booking.Car.CarType == CarType.Van)
-                    {
-                        carCost = decimal.Round((baseDayRental * (booking.RentedDays - 2) * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
-                        booking.Price = carCost;
-                    }
-                    if (booking.Car.CarType == CarType.Minibus)
-                    {
-                        carCost = decimal.Round((baseDayRental * (booking.RentedDays - 2) * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
-                        booking.Price = carCost;
-                    }
-                }
-            }
-
-
-            //Gold
-
-            if (booking.Customer.MemberLevel == MemberLevel.Gold)
-            {
-                var baseDayRental = 50;
-
-                booking.Distance = booking.Distance - 20;
-
-                if (booking.RentedDays <= 2)
-                {
-
+                    var baseDayRental = 50;
                     if (booking.Car.CarType == CarType.Small)
                     {
                         carCost = baseDayRental * booking.RentedDays;
@@ -189,54 +96,144 @@ namespace Biluthyrning.Repositories
                         carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
                         booking.Price = carCost;
                     }
-
                 }
 
-                if (booking.RentedDays == 3)
+                //Silver
+
+                if (booking.Customer.MemberLevel == MemberLevel.Silver)
                 {
-                    if (booking.Car.CarType == CarType.Small)
+                    var baseDayRental = 50;
+
+                    if (booking.RentedDays <= 2)
                     {
-                        carCost = baseDayRental * (booking.RentedDays - 1);
-                        booking.Price = carCost;
+
+                        if (booking.Car.CarType == CarType.Small)
+                        {
+                            carCost = baseDayRental * booking.RentedDays;
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Van)
+                        {
+                            carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Minibus)
+                        {
+                            carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
                     }
-                    if (booking.Car.CarType == CarType.Van)
+
+                    if (booking.RentedDays == 3)
                     {
-                        carCost = decimal.Round((baseDayRental * (booking.RentedDays - 1) * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
-                        booking.Price = carCost;
+                        if (booking.Car.CarType == CarType.Small)
+                        {
+                            carCost = baseDayRental * (booking.RentedDays - 1);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Van)
+                        {
+                            carCost = decimal.Round((baseDayRental * (booking.RentedDays - 1) * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Minibus)
+                        {
+                            carCost = decimal.Round((baseDayRental * (booking.RentedDays - 1) * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
                     }
-                    if (booking.Car.CarType == CarType.Minibus)
+
+                    if (booking.RentedDays >= 4)
                     {
-                        carCost = decimal.Round((baseDayRental * (booking.RentedDays - 1) * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
-                        booking.Price = carCost;
+                        if (booking.Car.CarType == CarType.Small)
+                        {
+                            carCost = baseDayRental * (booking.RentedDays - 2);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Van)
+                        {
+                            carCost = decimal.Round((baseDayRental * (booking.RentedDays - 2) * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Minibus)
+                        {
+                            carCost = decimal.Round((baseDayRental * (booking.RentedDays - 2) * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
                     }
                 }
 
-                if (booking.RentedDays >= 4)
+                //Gold
+
+                if (booking.Customer.MemberLevel == MemberLevel.Gold)
                 {
-                    if (booking.Car.CarType == CarType.Small)
+                    var baseDayRental = 50;
+
+                    booking.Distance = booking.Distance - 20;
+
+                    if (booking.RentedDays <= 2)
                     {
-                        carCost = baseDayRental * (booking.RentedDays - 2);
-                        booking.Price = carCost;
+                        if (booking.Car.CarType == CarType.Small)
+                        {
+                            carCost = baseDayRental * booking.RentedDays;
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Van)
+                        {
+                            carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Minibus)
+                        {
+                            carCost = decimal.Round((baseDayRental * booking.RentedDays * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
                     }
-                    if (booking.Car.CarType == CarType.Van)
+
+                    if (booking.RentedDays == 3)
                     {
-                        carCost = decimal.Round((baseDayRental * (booking.RentedDays - 2) * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
-                        booking.Price = carCost;
+                        if (booking.Car.CarType == CarType.Small)
+                        {
+                            carCost = baseDayRental * (booking.RentedDays - 1);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Van)
+                        {
+                            carCost = decimal.Round((baseDayRental * (booking.RentedDays - 1) * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Minibus)
+                        {
+                            carCost = decimal.Round((baseDayRental * (booking.RentedDays - 1) * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
                     }
-                    if (booking.Car.CarType == CarType.Minibus)
+
+                    if (booking.RentedDays >= 4)
                     {
-                        carCost = decimal.Round((baseDayRental * (booking.RentedDays - 2) * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
-                        booking.Price = carCost;
+                        if (booking.Car.CarType == CarType.Small)
+                        {
+                            carCost = baseDayRental * (booking.RentedDays - 2);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Van)
+                        {
+                            carCost = decimal.Round((baseDayRental * (booking.RentedDays - 2) * 1.2m) + (kmPrice * booking.Distance), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
+                        if (booking.Car.CarType == CarType.Minibus)
+                        {
+                            carCost = decimal.Round((baseDayRental * (booking.RentedDays - 2) * 1.7m) + (kmPrice * booking.Distance * 1.5m), 2, MidpointRounding.AwayFromZero);
+                            booking.Price = carCost;
+                        }
                     }
                 }
-            }
 
+                booking.Car.Booked = false;
 
-            booking.Car.Booked = false;
-
-            _context.Update(booking);
-            _context.Update(booking.Car);
-            _context.SaveChanges();
+                _context.Update(booking);
+                _context.Update(booking.Car);
+                _context.SaveChanges();
         }
     }
 }
